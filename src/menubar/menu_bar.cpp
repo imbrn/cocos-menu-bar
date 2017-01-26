@@ -1,4 +1,5 @@
 #include "menu_bar.h"
+#include <cmath>
 
 namespace menubar {
 
@@ -61,23 +62,34 @@ void MenuBar::onSizeChanged() {
 
 void MenuBar::PositionLeftItems() {
   left_items_->setContentSize({0, available_height()});
-  left_items_->setPosition({float(padding_.left), float(padding_.bottom)});
+  float x = padding_.left;
+  float y = padding_.bottom;
+  left_items_->setPosition({x, y});
 }
 
 void MenuBar::PositionRightItems() {
   right_items_->setContentSize({0, available_height()});
-  right_items_->setPosition({float(getContentSize().width - padding_.right), float(padding_.bottom)});
+  float x = getContentSize().width - padding_.right;
+  float y = padding_.bottom;
+  right_items_->setPosition({x, y});
 }
 
 float MenuBar::available_height() const {
   return getContentSize().height - padding_.top - padding_.bottom;
 }
 
-void MenuBar::AddBackground(cocos2d::ui::Widget *background) {
+void MenuBar::set_background(cocos2d::ui::Widget *background) {
   RemoveBackground();
   background_ = background;
   AddBackground();
   FitBackground();
+}
+
+void MenuBar::set_background(const cocos2d::Color3B &color) {
+  auto background = cocos2d::ui::Layout::create();
+  background->setBackGroundColorType(cocos2d::ui::Layout::BackGroundColorType::SOLID);
+  background->setBackGroundColor(color);
+  set_background(background);
 }
 
 void MenuBar::RemoveBackground() {
@@ -107,6 +119,19 @@ void MenuBar::AddLeftComponent(cocos2d::ui::Widget *component, unsigned int inde
 
 void MenuBar::AddRightComponent(cocos2d::ui::Widget *component, unsigned int index) {
   right_items_->AddComponent(component, index);
+}
+
+void MenuBar::RemoveAllComponents() {
+  RemoveAllLeftComponents();
+  RemoveAllRightComponents();
+}
+
+void MenuBar::RemoveAllLeftComponents() {
+  left_items_->RemoveAllComponents();
+}
+
+void MenuBar::RemoveAllRightComponents() {
+  right_items_->RemoveAllComponents();
 }
 
 }

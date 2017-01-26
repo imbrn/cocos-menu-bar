@@ -16,13 +16,23 @@ protected:
   MenuBar(const Padding &padding, float items_gap);
   
 public:
-  static MenuBar *create(const Padding &padding = {10, 16, 10, 16}, float items_gap = 16);
+  static MenuBar *create(const Padding &padding = {10, 16, 10, 16}, float items_gap = 24);
   virtual ~MenuBar() {}
+
   virtual bool init() override;
-  virtual void onSizeChanged() override;
-  void AddBackground(cocos2d::ui::Widget *background);
+
+  void set_background(cocos2d::ui::Widget *background);
+  void set_background(const cocos2d::Color3B &color);
+
   void AddLeftComponent(cocos2d::ui::Widget *component, unsigned int index = -1);
   void AddRightComponent(cocos2d::ui::Widget *component, unsigned int index = -1);
+
+  void RemoveAllComponents();
+  void RemoveAllLeftComponents();
+  void RemoveAllRightComponents();
+
+protected:
+  virtual void onSizeChanged() override;
 
 private:
   void DoInit();

@@ -51,8 +51,8 @@ void ItemsBar::FitComponent(cocos2d::ui::Widget *component) {
 
 void ItemsBar::PositionComponent(cocos2d::ui::Widget *component, float x, float y) {
   component->setAnchorPoint({0.5, 0.5});
-  float component_x = x + component->getBoundingBox().size.width / 2;
-  float component_y = y + component->getBoundingBox().size.height / 2;
+  float component_x = (x + component->getBoundingBox().size.width / 2);
+  float component_y = (y + component->getBoundingBox().size.height / 2);
   component->setPosition({component_x, component_y});
 }
 
@@ -74,6 +74,12 @@ void ItemsBar::AddComponentAtIndex(cocos2d::ui::Widget *component, int index) {
 
 void ItemsBar::AddComponentAtEnd(cocos2d::ui::Widget *component) {
   components_.push_back(component);
+}
+
+void ItemsBar::RemoveAllComponents() {
+  for (auto component : components_) {
+    RemoveComponent(component);
+  }
 }
 
 void ItemsBar::RemoveComponent(cocos2d::ui::Widget *component) {

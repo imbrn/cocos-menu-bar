@@ -20,6 +20,7 @@ public:
   virtual void onSizeChanged() override;
   virtual ~ItemsBar() {}
   void AddComponent(cocos2d::ui::Widget *component, int index = -1);
+  void RemoveAllComponents();
   void RemoveComponent(cocos2d::ui::Widget *component);
   bool HasComponent(cocos2d::ui::Widget *component) const;
 
