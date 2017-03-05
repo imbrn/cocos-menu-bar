@@ -18,9 +18,8 @@ ItemsBar *ItemsBar::create(float items_gap) {
 }
 
 bool ItemsBar::init() {
-  if (!cocos2d::ui::Widget::init()) {
+  if (!cocos2d::ui::Widget::init())
     return false;
-  }
   DoInit();
   return true;
 }
@@ -36,12 +35,15 @@ void ItemsBar::onSizeChanged() {
 
 void ItemsBar::Layout() {
   float x = 0;
-  for (auto component : components_) {
-    FitComponent(component);
-    PositionComponent(component, x, 0);
-    x = component->getBoundingBox().getMaxX() + items_gap_;
-  }
+  for (auto component : components_)
+    if (component && component->isVisible()) x = LayoutComponent(component, x);
   setContentSize({x - items_gap_, getContentSize().height});
+}
+
+float ItemsBar::LayoutComponent(cocos2d::ui::Widget *component, float x) {
+  FitComponent(component);
+  PositionComponent(component, x, 0);
+  return component->getBoundingBox().getMaxX() + items_gap_;
 }
 
 void ItemsBar::FitComponent(cocos2d::ui::Widget *component) {
@@ -58,11 +60,8 @@ void ItemsBar::PositionComponent(cocos2d::ui::Widget *component, float x, float 
 
 void ItemsBar::AddComponent(cocos2d::ui::Widget *component, int index) {
   if (!HasComponent(component)) {
-    if (index != -1) {
-      AddComponentAtIndex(component, index);
-    } else {
-      AddComponentAtEnd(component);
-    }
+    if (index != -1) AddComponentAtIndex(component, index);
+    else AddComponentAtEnd(component);
     this->addChild(component);
     Layout();
   }

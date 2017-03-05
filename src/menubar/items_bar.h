@@ -27,6 +27,7 @@ public:
 private:
   void DoInit();
   void Layout();
+  float LayoutComponent(cocos2d::ui::Widget *component, float x);
   void FitComponent(cocos2d::ui::Widget *component);
   void PositionComponent(cocos2d::ui::Widget *component, float x, float y);
 
