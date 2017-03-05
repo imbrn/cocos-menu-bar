@@ -53,6 +53,11 @@ void MenuBar::SetDefaultSize() {
   setContentSize({visible_size.width, 50});
 }
 
+void MenuBar::Update() {
+  left_items_->Update();
+  right_items_->Update();
+}
+
 void MenuBar::onSizeChanged() {
   cocos2d::ui::Widget::onSizeChanged();
   FitBackground();

@@ -21,6 +21,8 @@ public:
 
   virtual bool init() override;
 
+  void Update();
+
   void set_background(cocos2d::ui::Widget *background);
   void set_background(const cocos2d::Color3B &color);
 

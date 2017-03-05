@@ -33,6 +33,10 @@ void ItemsBar::onSizeChanged() {
   Layout();
 }
 
+void ItemsBar::Update() {
+  Layout();
+}
+
 void ItemsBar::Layout() {
   float x = 0;
   for (auto component : components_)
