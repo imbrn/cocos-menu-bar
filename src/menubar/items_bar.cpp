@@ -76,9 +76,10 @@ void ItemsBar::AddComponentAtEnd(cocos2d::ui::Widget *component) {
 }
 
 void ItemsBar::RemoveAllComponents() {
-  for (auto component : components_) {
-    RemoveComponent(component);
-  }
+  for (auto component : components_)
+    this->removeChild(component);
+  components_.clear();
+  Layout();
 }
 
 void ItemsBar::RemoveComponent(cocos2d::ui::Widget *component) {
